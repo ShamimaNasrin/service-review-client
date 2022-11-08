@@ -1,0 +1,9 @@
+.btn-login:hover {
+    background-color: white;
+    color: #4097ef;
+    border: 2px solid white;
+}
+.btn-toogle:hover{
+    color: white;
+    background: transparent;
+}
