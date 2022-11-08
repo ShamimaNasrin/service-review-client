@@ -8,14 +8,14 @@ const Header = () => {
 
     //header menus
     const menuItems = <>
+        <li className='font-bold text-white'><Link to='/'>Home</Link></li>
         <li className='font-bold text-white'><Link to='/services'>Services</Link></li>
         <li className='font-bold text-white'><Link to='/blog'>Blog</Link></li>
-        <li className='font-bold text-white'><Link to='/'>Home</Link></li>
         <li className='font-bold text-white'><Link to='/about'>About</Link></li>
         {/* {
         user?.email ?
             <>
-                <li className='font-semibold'><Link to='/orders'>Orders</Link></li>
+                <li className='font-semibold'><Link to='/services'>Services</Link></li>
                 <li className='font-semibold'>
                     <button onClick={ handleLogOut } className='btn-ghost'>Sign Out</button>
                 </li>
@@ -49,7 +49,7 @@ const Header = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link to='/loging'>
+                <Link to='/login'>
                     <button className="btn bg-transparent border-white border-2 px-4 btn-login">Login</button>
                 </Link>
             </div>
