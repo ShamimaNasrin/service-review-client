@@ -1,7 +1,9 @@
 import React from 'react';
+import useTitle from '../../Hooks/useTitle';
 import './Blog.css';
 
 const Blog = () => {
+    useTitle('Blog');
     return (
         <div className='py-10'>
             <div className="rounded grid grid-cols-1 gap-4 justify-center">
