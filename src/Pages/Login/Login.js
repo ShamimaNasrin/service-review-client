@@ -4,10 +4,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import useTitle from '../../Hooks/useTitle';
 import img1 from '../../images/login.png';
+import { GoogleAuthProvider } from 'firebase/auth';
 
 const Login = () => {
     const [error, setError] = useState('');
-    const { signIn, setLoading, providerLogin, providerLoginGithub } = useContext(AuthContext);
+    const { signIn, setLoading, providerLoginGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
     // const location = useLocation();
     useTitle('Login');
@@ -31,9 +32,10 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 form.reset();
-                setError('');
+                setError('wrong email or password');
                 toast('Login successfull');
                 // navigate(from, { replace: true });
+                navigate('/');
             })
             .catch(error => {
                 console.error(error);
@@ -42,7 +44,18 @@ const Login = () => {
             .finally(() => {
                 setLoading(false);
             })
+    }
 
+    //creating googleProvider & handle login with google
+    const googleProvider = new GoogleAuthProvider();
+    const handleGoogleSignIn = () => {
+        providerLoginGoogle(googleProvider)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                //  navigate(from, { replace: true });
+            })
+            .catch(error => console.error(error))
     }
 
 
@@ -62,20 +75,21 @@ const Login = () => {
 
                             <div className="form-control">
 
-                                <input type="text" name='email' placeholder="email" className="input w-full bg-white border-teal-200" required />
+                                <input type="text" name='email' placeholder="email" className="input w-full bg-white border-teal-200" />
                             </div>
                             <div className="form-control">
 
-                                <input type="password" name='password' placeholder="password" className="input w-full bg-white border-teal-200" required />
+                                <input type="password" name='password' placeholder="password" className="input w-full bg-white border-teal-200" />
                             </div>
 
                         </div>
 
                         <input className='btn w-full mt-7 bg-blue-500 hover:bg-blue-700 border-0' type="submit" value="Login" />
                         <p className='text-center font-bold mt-3'>OR</p>
-                        <button className='btn w-full mt-2 bg-transparent border-red-500 border-2 hover:bg-red-500 text-red-500 hover:text-white hover:border-red-500'>Google</button>
+                        <button onClick={handleGoogleSignIn} className='btn w-full mt-2 bg-transparent border-red-500 border-2 hover:bg-red-500 text-red-500 hover:text-white hover:border-red-500'>Google</button>
 
                         <button className='btn w-full mt-3 bg-transparent border-black border-2 hover:bg-neutral-800 text-black hover:text-white'>Github</button>
+                        <p className='text-red-500 mt-3'>{error}</p>
                     </form>
                     <p className='text-center'>No account? <Link className='text-blue-600 font-bold' to="/signup">Sign Up</Link> </p>
                 </div>
