@@ -1,8 +1,43 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import img1 from '../../images/signUp.png';
 
 const SignUp = () => {
+    const { createUser } = useContext(AuthContext);
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+
+    //scrolltop
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    //create user
+    const handleSignUp = event => {
+        event.preventDefault();
+
+        const form = event.target;
+        const name = form.name.value;
+        const photoURL = form.photoURL.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(name, photoURL, email, password);
+
+        createUser(email, password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                form.reset();
+                setError('');
+                // handleUpdateUserProfile(name, photoURL);
+                navigate('/');
+            })
+            .catch(err => {
+                console.error(err);
+                setError(error.message);
+            });
+    }
     return (
         <div>
             <div className='bg-teal-50 rounded-lg p-6 lg:m-24 md:m-16 sm:m-9 m-5 flex flex-col sm:flex-col md:flex-row lg:flex-row justify-center items-center'>
@@ -13,13 +48,13 @@ const SignUp = () => {
 
                 <div className='mt-6 sm:mt-6 md:mt-0 lg:mt-0 flex justify-center items-center md:w-1/2 lg:w-2/5 card w-full max-w-sm shadow-2xl bg-base-100 py-12'>
                     <h1 className="text-5xl text-center font-bold mb-6">Sign up</h1>
-                    <form className='w-11/12  p-0 sm:p-1 md:p-4 lg:p-7 mx-auto'>
+                    <form onSubmit={handleSignUp} className='w-11/12  p-0 sm:p-1 md:p-4 lg:p-7 mx-auto'>
 
                         <div className='grid grid-cols-1 gap-4'>
 
                             <div className="form-control">
 
-                                <input type="text" name='name' placeholder="Your Name" className="input w-full bg-white border-teal-200" required />
+                                <input type="text" name='name' placeholder="Your Name" className="input w-full bg-white border-teal-200"  />
                             </div>
                             <div className="form-control">
 
