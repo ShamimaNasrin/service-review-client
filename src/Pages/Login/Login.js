@@ -18,24 +18,21 @@ const Login = () => {
                         <div className='grid grid-cols-1 gap-4'>
 
                             <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Email</span>
-                                </label>
+
                                 <input type="text" name='email' placeholder="email" className="input w-full bg-white border-teal-200" required />
                             </div>
                             <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Password</span>
-                                </label>
+
                                 <input type="password" name='password' placeholder="password" className="input w-full bg-white border-teal-200" required />
                             </div>
 
                         </div>
 
                         <input className='btn w-full mt-7 bg-blue-500 hover:bg-blue-700 border-0' type="submit" value="Login" />
-                        <button className='btn w-full mt-7 bg-transparent border-red-500 border-2 hover:bg-red-500 text-red-500 hover:text-white hover:border-red-500'>Google</button>
+                        <p className='text-center font-bold mt-3'>OR</p>
+                        <button className='btn w-full mt-2 bg-transparent border-red-500 border-2 hover:bg-red-500 text-red-500 hover:text-white hover:border-red-500'>Google</button>
 
-                        <button className='btn w-full mt-7 bg-transparent border-black border-2 hover:bg-neutral-800 text-black hover:text-white'>Github</button>
+                        <button className='btn w-full mt-3 bg-transparent border-black border-2 hover:bg-neutral-800 text-black hover:text-white'>Github</button>
                     </form>
                     <p className='text-center'>No account? <Link className='text-blue-600 font-bold' to="/signup">Sign Up</Link> </p>
                 </div>
