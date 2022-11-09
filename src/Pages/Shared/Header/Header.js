@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 import logo from '../../../images/tooth.png';
 import './Header.css';
 
 const Header = () => {
+    const { user, logOut } = useContext(AuthContext);
 
+    //Logout
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.error(error))
+    }
 
     //header menus
     const menuItems = <>
@@ -12,17 +20,21 @@ const Header = () => {
         <li className='font-bold text-white'><Link to='/services'>Services</Link></li>
         <li className='font-bold text-white'><Link to='/blog'>Blog</Link></li>
         <li className='font-bold text-white'><Link to='/about'>About</Link></li>
-        {/* {
-        user?.email ?
-            <>
-                <li className='font-semibold'><Link to='/services'>Services</Link></li>
-                <li className='font-semibold'>
-                    <button onClick={ handleLogOut } className='btn-ghost'>Sign Out</button>
+        {
+            user?.uid ?
+                <>
+                    <li className='font-bold text-white'><Link to='/'>Add service</Link></li>
+                    <li className='font-bold text-white'>
+                        <button onClick={handleLogOut} className='btn bg-transparent border-white border-2 px-4 btn-login'>Sign Out</button>
+                    </li>
+                </>
+                :
+                <li className='font-bold'>
+                    <Link to='/login'>
+                        <button className="btn bg-transparent border-white border-2 px-4 btn-login">Login</button>
+                    </Link>
                 </li>
-            </>
-            :
-            <li className='font-semibold'><Link to='/login'>Login</Link></li>
-    } */}
+        }
     </>
     return (
         <div className="navbar bg-blue-500 px-5 py-5">
@@ -43,16 +55,12 @@ const Header = () => {
                     </Link>
                 </div>
             </div>
-            <div className="navbar-center hidden lg:flex">
+            <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal p-0">
                     {menuItems}
                 </ul>
             </div>
-            <div className="navbar-end">
-                <Link to='/login'>
-                    <button className="btn bg-transparent border-white border-2 px-4 btn-login">Login</button>
-                </Link>
-            </div>
+
         </div>
     );
 };

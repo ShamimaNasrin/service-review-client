@@ -5,6 +5,7 @@ import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import useTitle from '../../Hooks/useTitle';
 import img1 from '../../images/login.png';
 import { GoogleAuthProvider } from 'firebase/auth';
+import { Rings } from 'react-loader-spinner'
 
 const Login = () => {
     const [error, setError] = useState('');
@@ -29,6 +30,16 @@ const Login = () => {
 
         signIn(email, password)
             .then(result => {
+                // <Rings
+                //     height="80"
+                //     width="80"
+                //     color="#6fb7ef"
+                //     radius="6"
+                //     wrapperStyle={{}}
+                //     wrapperClass=""
+                //     visible={true}
+                //     ariaLabel="rings-loading"
+                // />
                 const user = result.user;
                 console.log(user);
                 form.reset();
@@ -85,10 +96,13 @@ const Login = () => {
                         </div>
 
                         <input className='btn w-full mt-7 bg-blue-500 hover:bg-blue-700 border-0' type="submit" value="Login" />
+
                         <p className='text-center font-bold mt-3'>OR</p>
+
                         <button onClick={handleGoogleSignIn} className='btn w-full mt-2 bg-transparent border-red-500 border-2 hover:bg-red-500 text-red-500 hover:text-white hover:border-red-500'>Google</button>
 
-                        <button className='btn w-full mt-3 bg-transparent border-black border-2 hover:bg-neutral-800 text-black hover:text-white'>Github</button>
+                        {/* <button className='btn w-full mt-3 bg-transparent border-black border-2 hover:bg-neutral-800 text-black hover:text-white'>Github</button> */}
+
                         <p className='text-red-500 mt-3'>{error}</p>
                     </form>
                     <p className='text-center'>No account? <Link className='text-blue-600 font-bold' to="/signup">Sign Up</Link> </p>
