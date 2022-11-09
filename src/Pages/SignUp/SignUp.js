@@ -4,7 +4,7 @@ import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import img1 from '../../images/signUp.png';
 
 const SignUp = () => {
-    const { createUser } = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -30,13 +30,24 @@ const SignUp = () => {
                 console.log(user);
                 form.reset();
                 setError('');
-                // handleUpdateUserProfile(name, photoURL);
+                handleUpdateUserProfile(name, photoURL);
                 navigate('/');
             })
             .catch(err => {
                 console.error(err);
                 setError(error.message);
             });
+    }
+
+    //to get userName and Photo
+    const handleUpdateUserProfile = (name, photoURL) => {
+        const profile = {
+            displayName: name,
+            photoURL: photoURL
+        }
+        updateUserProfile(profile)
+            .then(() => { })
+            .catch(error => console.error(error));
     }
     return (
         <div>
@@ -54,11 +65,11 @@ const SignUp = () => {
 
                             <div className="form-control">
 
-                                <input type="text" name='name' placeholder="Your Name" className="input w-full bg-white border-teal-200"  />
+                                <input type="text" name='name' placeholder="Your Name" className="input w-full bg-white border-teal-200" required />
                             </div>
                             <div className="form-control">
 
-                                <input type="text" name='photo' placeholder="photo url" className="input w-full bg-white border-teal-200" />
+                                <input type="text" name='photoURL' placeholder="photo url" className="input w-full bg-white border-teal-200" />
                             </div>
                             <div className="form-control">
 
