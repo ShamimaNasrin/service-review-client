@@ -1,6 +1,16 @@
-.header-sec{
+.header-sec {
     height: 85vh;
 }
-.card-img-h{
+
+.card-img-h {
     height: 200px;
+}
+
+
+/* Responsiveness for mobile */
+@media screen and (max-width:689px) {
+    .header-sec {
+        height: 60vh;
+    }
+
 }

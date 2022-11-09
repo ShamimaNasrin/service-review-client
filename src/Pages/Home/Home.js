@@ -1,5 +1,6 @@
 import React from 'react';
 import useTitle from '../../Hooks/useTitle';
+import Appointment from './Appointment/Appointment';
 import Banner from './Banner/Banner';
 
 const Home = () => {
@@ -7,6 +8,7 @@ const Home = () => {
     return (
         <div>
             <Banner></Banner>
+            <Appointment></Appointment>
         </div>
     );
 };
