@@ -4,7 +4,7 @@ import img1 from '../../../images/appointment.png';
 const Appointment = () => {
     return (
         <div>
-            <section className='bg-cyan-50'>
+            <section className='bg-teal-50'>
                 <header className='flex flex-col-reverse sm:flex-col-reverse md:flex-row lg:flex-row justify-center items-center py-9'>
 
                     <div className='w-10/12 sm:w-9/12 md:w-1/2 lg:w-1/2 flex justify-center items-center'>
