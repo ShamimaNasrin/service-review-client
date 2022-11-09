@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import useTitle from '../../Hooks/useTitle';
 import img1 from '../../images/signUp.png';
 
 const SignUp = () => {
-    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile, setLoading } = useContext(AuthContext);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    useTitle('Signup');
 
     //scrolltop
     useEffect(() => {
@@ -22,7 +25,7 @@ const SignUp = () => {
         const photoURL = form.photoURL.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(name, photoURL, email, password);
+        //console.log(name, photoURL, email, password);
 
         createUser(email, password)
             .then(result => {
@@ -32,11 +35,15 @@ const SignUp = () => {
                 setError('');
                 handleUpdateUserProfile(name, photoURL);
                 navigate('/');
+                toast('Signup successfull');
             })
             .catch(err => {
                 console.error(err);
                 setError(error.message);
-            });
+            })
+            .finally(() => {
+                setLoading(false);
+            })
     }
 
     //to get userName and Photo
