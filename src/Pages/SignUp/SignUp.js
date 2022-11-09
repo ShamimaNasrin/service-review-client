@@ -6,7 +6,7 @@ import useTitle from '../../Hooks/useTitle';
 import img1 from '../../images/signUp.png';
 
 const SignUp = () => {
-    const { createUser, updateUserProfile, setLoading } = useContext(AuthContext);
+    const { createUser, loading, updateUserProfile, setLoading } = useContext(AuthContext);
     const [error, setError] = useState('');
     const navigate = useNavigate();
     useTitle('Signup');

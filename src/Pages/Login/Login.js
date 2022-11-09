@@ -9,7 +9,7 @@ import { Rings } from 'react-loader-spinner'
 
 const Login = () => {
     const [error, setError] = useState('');
-    const { signIn, setLoading, providerLoginGoogle } = useContext(AuthContext);
+    const { signIn, loading, setLoading, providerLoginGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
     // const location = useLocation();
     useTitle('Login');
@@ -30,7 +30,8 @@ const Login = () => {
 
         signIn(email, password)
             .then(result => {
-                // <Rings
+                // if(loading){
+                //     <Rings
                 //     height="80"
                 //     width="80"
                 //     color="#6fb7ef"
@@ -40,6 +41,7 @@ const Login = () => {
                 //     visible={true}
                 //     ariaLabel="rings-loading"
                 // />
+                // }
                 const user = result.user;
                 console.log(user);
                 form.reset();
