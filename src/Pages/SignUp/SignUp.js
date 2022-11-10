@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import useTitle from '../../Hooks/useTitle';
 import img1 from '../../images/signUp.png';
@@ -9,6 +9,9 @@ const SignUp = () => {
     const { createUser, loading, updateUserProfile, setLoading } = useContext(AuthContext);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location?.state?.from.pathname || '/';
+
     useTitle('Signup');
 
     //scrolltop
@@ -36,6 +39,7 @@ const SignUp = () => {
                 handleUpdateUserProfile(name, photoURL);
                 navigate('/');
                 toast('Signup successfull');
+                navigate(from, { replace: true });
             })
             .catch(err => {
                 console.error(err);

@@ -11,10 +11,10 @@ const Login = () => {
     const [error, setError] = useState('');
     const { signIn, loading, setLoading, providerLoginGoogle } = useContext(AuthContext);
     const navigate = useNavigate();
-    // const location = useLocation();
+    const location = useLocation();
     useTitle('Login');
 
-    // const from = location?.state?.from.pathname || '/';
+    const from = location?.state?.from.pathname || '/';
 
     //scrolltop
     useEffect(() => {
@@ -47,8 +47,8 @@ const Login = () => {
                 form.reset();
                 setError('wrong email or password');
                 toast('Login successfull');
-                // navigate(from, { replace: true });
-                navigate('/');
+                navigate(from, { replace: true });
+
             })
             .catch(error => {
                 console.error(error);
@@ -66,7 +66,7 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
-                //  navigate(from, { replace: true });
+                navigate(from, { replace: true });
             })
             .catch(error => console.error(error))
     }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import useTitle from '../../Hooks/useTitle';
 import ServiceCard from '../Home/ServiceSection/ServiceCard';
 
 const Services = () => {
@@ -8,7 +9,15 @@ const Services = () => {
         fetch('http://localhost:5000/services')
             .then(res => res.json())
             .then(data => setAllServices(data))
-    }, [])
+    }, []);
+
+    useTitle('Services');
+
+    //scrolltop
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div>
             <div className='text-center mt-7 p-10'>

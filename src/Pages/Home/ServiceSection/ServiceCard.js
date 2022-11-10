@@ -32,9 +32,10 @@ const ServiceCard = ({ service }) => {
 
                 </div>
                 <div className="card-actions justify-center">
-                    <Link to={`/checkout/${_id}`}>
+                    <Link to={`/servicedetails/${_id}`}>
                         <button className="btn mt-4 px-9 mx-auto block bg-blue-500 hover:bg-blue-700 border-0">View details</button>
                     </Link>
+                    {/* <Link className='d-flex justify-content-center' to={`/coursedetails/${_id}`}></Link> */}
                 </div>
             </div>
         </div>
