@@ -5,13 +5,11 @@ import ServiceCard from './ServiceCard';
 const ServiceSection = () => {
     const [services, setServices] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/services')
+        fetch('http://localhost:5000/servicesHome')
             .then(res => res.json())
             .then(data => setServices(data))
     }, [])
 
-    //slice 3 services
-    const threeServices = services.slice(0, 3);
     return (
         <div>
             <div className='text-center mt-7 p-10'>
@@ -21,7 +19,7 @@ const ServiceSection = () => {
             </div>
             <div className='grid gap-6 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-8 mx-auto px-5 justify-evenly justify-items-center'>
                 {
-                    threeServices.map(service => <ServiceCard
+                    services.map(service => <ServiceCard
                         key={service._id}
                         service={service}
                     ></ServiceCard>)
