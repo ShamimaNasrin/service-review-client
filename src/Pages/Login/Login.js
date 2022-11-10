@@ -30,18 +30,18 @@ const Login = () => {
 
         signIn(email, password)
             .then(result => {
-                // if(loading){
-                //     <Rings
-                //     height="80"
-                //     width="80"
-                //     color="#6fb7ef"
-                //     radius="6"
-                //     wrapperStyle={{}}
-                //     wrapperClass=""
-                //     visible={true}
-                //     ariaLabel="rings-loading"
-                // />
-                // }
+                if(loading){
+                    <Rings
+                    height="80"
+                    width="80"
+                    color="#6fb7ef"
+                    radius="6"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                    ariaLabel="rings-loading"
+                />
+                }
                 const user = result.user;
                 console.log(user);
                 

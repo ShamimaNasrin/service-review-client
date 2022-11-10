@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import useTitle from '../../Hooks/useTitle';
 import img1 from '../../images/signUp.png';
+import { Rings } from 'react-loader-spinner'
 
 const SignUp = () => {
     const { createUser, loading, updateUserProfile, setLoading } = useContext(AuthContext);
@@ -32,6 +33,18 @@ const SignUp = () => {
 
         createUser(email, password)
             .then(result => {
+                if (loading) {
+                    <Rings
+                        height="80"
+                        width="80"
+                        color="#6fb7ef"
+                        radius="6"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="rings-loading"
+                    />
+                }
                 const user = result.user;
                 console.log(user);
                 form.reset();
