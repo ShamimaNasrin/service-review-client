@@ -12,7 +12,6 @@ const Services = () => {
     }, []);
 
     useTitle('Services');
-
     //scrolltop
     useEffect(() => {
         window.scrollTo(0, 0);

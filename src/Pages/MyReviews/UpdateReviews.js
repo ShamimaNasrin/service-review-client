@@ -1,11 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import useTitle from '../../Hooks/useTitle';
 
 const UpdateReviews = () => {
     const { user, loading } = useContext(AuthContext);
-
+    useTitle('Add Services');
+    //scrolltop
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     // const storedReview = useLoaderData();
     // const [review, setReview] = useState(storedReview);
     // //console.log(storedReview);

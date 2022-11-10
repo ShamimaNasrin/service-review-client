@@ -1,11 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import useTitle from '../../Hooks/useTitle';
 import MyReviewsCard from './MyReviewsCard';
 
 const MyReviews = () => {
     const { user } = useContext(AuthContext);
     const [myreviews, setMyreviews] = useState([]);
+    useTitle('My reviews');
+    //scrolltop
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     useEffect(() => {
         fetch(`https://dentist-server.vercel.app/myreviews?email=${user?.email}`, {

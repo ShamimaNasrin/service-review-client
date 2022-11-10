@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import toast from 'react-hot-toast';
+import useTitle from '../../Hooks/useTitle';
 
 const AddServices = () => {
+    useTitle('Add Services');
+    //scrolltop
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const handleAddService = event => {
         event.preventDefault();
