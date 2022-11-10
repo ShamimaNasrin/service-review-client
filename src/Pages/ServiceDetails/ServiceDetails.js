@@ -4,6 +4,7 @@ import useTitle from '../../Hooks/useTitle';
 import { FaRegMoneyBillAlt, FaStar } from "react-icons/fa";
 import ReviewCard from './Reviews/ReviewCard';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import toast from 'react-hot-toast';
 
 const ServiceDetails = () => {
     const { user, loading } = useContext(AuthContext);
@@ -17,6 +18,45 @@ const ServiceDetails = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    const handleAddReview = event => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const email = user?.email || 'unregistered';
+        const date = form.date.value;
+        const message = form.message.value;
+        //console.log(name, email, date, message);
+
+        const review = {
+            service: _id,
+            serviceName: title,
+            price,
+            patient: name,
+            email,
+            date,
+            message
+        }
+
+            fetch('http://localhost:5000/reviews', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json',
+                    // authorization: `Bearer ${localStorage.getItem('genius-token')}`
+                },
+                body: JSON.stringify(review)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    if (data.acknowledged) {
+                        toast('Your review added successfuly');
+                        form.reset();
+                    }
+                })
+                .catch(er => console.error(er));
+        }
+
+    
 
     return (
         <div>
@@ -81,18 +121,21 @@ const ServiceDetails = () => {
 
                         <div className='mx-auto'>
                             <div className='mt-6 sm:mt-6 md:mt-0 lg:mt-0 flex justify-center sm:justify-center md:justify-start lg:justify-start items-center sm:items-center md:items-start lg:items-start md:w-1/2 lg:w-2/5 mx-auto'>
-                                <form className='w-11/12 sm:w-11/12 md:w-11/12 lg:w-9/12 p-0 sm:p-1 md:p-4 lg:p-7'>
+                                <form onSubmit={handleAddReview} className='w-11/12 sm:w-11/12 md:w-11/12 lg:w-9/12 p-0 sm:p-1 md:p-4 lg:p-7'>
                                     <h2 className="text-4xl font-bold mb-6">Review Form</h2>
 
                                     <div className='grid grid-cols-1 gap-4'>
-                                        <input name="Name" type="text" placeholder="Your Name" className="input input-ghost w-full bg-white border-teal-200" required/>
-                                        <input name="phone" type="text" placeholder="Phone" className="input input-ghost w-full bg-white border-teal-200"/>
+                                        <input name="name" type="text" placeholder="Your Name" className="input input-ghost w-full bg-white border-teal-200" required/>
+
+                                        <input name="date" type="date" placeholder="mm/dd/yyy" className="input input-ghost w-full bg-white border-teal-200" required/>
+
                                         <input name="email" type="text" placeholder="email" defaultValue={user?.email} className="input input-ghost w-full bg-white border-teal-200" />
-                                        <textarea name="message" className="textarea bg-white h-24 w-full border-teal-200" placeholder="Message" readOnly></textarea>
+
+                                        <textarea name="message" className="textarea bg-white h-24 w-full border-teal-200" placeholder="Message" ></textarea>
                                     </div>
 
 
-                                    <input className='btn w-10/12 mx-auto block mt-7 bg-blue-500 hover:bg-blue-700 border-0' type="submit" value="Submit" />
+                                    <input className='btn w-10/12 mx-auto block mt-7 bg-blue-500 hover:bg-blue-700 border-0' type="submit" value="Add review" />
                                 </form>
                             </div>
                         </div>
