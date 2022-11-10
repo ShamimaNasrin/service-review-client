@@ -18,7 +18,7 @@ const ServiceDetails = () => {
 
     //query service review
     useEffect(() => {
-        fetch(`http://localhost:5000/allreviews?service=${_id}`)
+        fetch(`https://dentist-server.vercel.app/allreviews?service=${_id}`)
             .then(res => res.json())
             .then(data => setAllReviews(data))
     }, [_id])
@@ -49,7 +49,7 @@ const ServiceDetails = () => {
             message
         }
 
-        fetch('http://localhost:5000/reviews', {
+        fetch('https://dentist-server.vercel.app/reviews', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

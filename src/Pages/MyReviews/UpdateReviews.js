@@ -13,7 +13,7 @@ const UpdateReviews = () => {
     // const handleUpdateReview = event =>{
     //     event.preventDefault();
     //     // console.log(review);
-    //     fetch(`http://localhost:5000/myreviews/${storedReview._id}`, {
+    //     fetch(`https://dentist-server.vercel.app/myreviews/${storedReview._id}`, {
     //         method: 'PUT',
     //         headers: {
     //             'content-type': 'application/json'

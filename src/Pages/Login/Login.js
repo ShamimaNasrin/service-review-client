@@ -44,10 +44,30 @@ const Login = () => {
                 // }
                 const user = result.user;
                 console.log(user);
-                form.reset();
-                setError('wrong email or password');
-                toast('Login successfull');
-                navigate(from, { replace: true });
+                
+                //get jwt token
+                const currentUser = {
+                    email: user.email
+                }
+                //console.log(currentUser);
+
+                fetch('https://dentist-server.vercel.app/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        localStorage.setItem('dentist-token', data.token);
+                        form.reset();
+                        setError('wrong email or password');
+                        toast('Login successfull');
+                        navigate(from, { replace: true });
+                    })
+    
 
             })
             .catch(error => {

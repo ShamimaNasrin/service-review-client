@@ -44,7 +44,7 @@ const router = createBrowserRouter([
               {
                 path: '/servicedetails/:serviceid', 
                 element: <ServiceDetails></ServiceDetails>,
-                loader: ({ params }) => fetch(`http://localhost:5000/services/${params.serviceid}`)
+                loader: ({ params }) => fetch(`https://dentist-server.vercel.app/services/${params.serviceid}`)
               },
               {
                 path: '/myreviews', 
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
               {
                 path: '/updatereviews/:id', 
                 element: <UpdateReviews></UpdateReviews>,
-                loader: ({ params }) => fetch(`http://localhost:5000/updatereviews/${params.id}`)
+                loader: ({ params }) => fetch(`https://dentist-server.vercel.app/updatereviews/${params.id}`)
               },
               {
                 path: '/addservices', 
