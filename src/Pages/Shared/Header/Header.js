@@ -20,10 +20,12 @@ const Header = () => {
         <li className='font-bold text-white'><Link to='/services'>Services</Link></li>
         <li className='font-bold text-white'><Link to='/blog'>Blog</Link></li>
         <li className='font-bold text-white'><Link to='/about'>About</Link></li>
+        <li className='font-bold text-white'><Link to='/myreviews'>My Reviews</Link></li>
+
         {
             user?.uid ?
                 <>
-                    <li className='font-bold text-white'><Link to='/'>Add service</Link></li>
+                    <li className='font-bold text-white'><Link to='/addservices'>Add service</Link></li>
                     <li className='font-bold text-white'>
                         <button onClick={handleLogOut} className='btn bg-transparent border-white border-2 px-4 btn-login'>Sign Out</button>
                     </li>

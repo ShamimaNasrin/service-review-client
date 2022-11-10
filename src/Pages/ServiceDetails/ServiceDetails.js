@@ -16,13 +16,6 @@ const ServiceDetails = () => {
     //console.log(service);
 
 
-    // //load all the reviews
-    // useEffect(() => {
-    //     fetch('http://localhost:5000/allreviews')
-    //         .then(res => res.json())
-    //         .then(data => setAllReviews(data))
-    // }, []);
-
     //query service review
     useEffect(() => {
         fetch(`http://localhost:5000/allreviews?service=${_id}`)
@@ -159,7 +152,7 @@ const ServiceDetails = () => {
                             </div>
                         </div>
 
-                        : <p className='text-center'>Please to add a review<Link className='text-blue-600 font-bold' to="/login">Login</Link> </p>
+                        : <p className='text-center font-bold py-10'>Please to add a review <Link className='text-blue-600 font-bold' to="/login">Login</Link> </p>
 
                     }
                 </div>
