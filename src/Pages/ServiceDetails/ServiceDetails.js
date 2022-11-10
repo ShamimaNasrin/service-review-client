@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import useTitle from '../../Hooks/useTitle';
 import { FaRegMoneyBillAlt, FaStar } from "react-icons/fa";
@@ -7,10 +7,28 @@ import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 import toast from 'react-hot-toast';
 
 const ServiceDetails = () => {
+    const [allReviews, setAllReviews] = useState([]);
+
     const { user, loading } = useContext(AuthContext);
+    //console.log(user);
     const service = useLoaderData();
-    const { _id, image_url, price, title, intro_text, rating, description } = service;
+    const { _id, image_url, price, title, rating, description } = service;
     //console.log(service);
+
+
+    // //load all the reviews
+    // useEffect(() => {
+    //     fetch('http://localhost:5000/allreviews')
+    //         .then(res => res.json())
+    //         .then(data => setAllReviews(data))
+    // }, []);
+
+    //query service review
+    useEffect(() => {
+        fetch(`http://localhost:5000/allreviews?service=${_id}`)
+            .then(res => res.json())
+            .then(data => setAllReviews(data))
+    }, [_id])
 
     useTitle('ServiceDetails');
     //scrolltop
@@ -25,38 +43,39 @@ const ServiceDetails = () => {
         const email = user?.email || 'unregistered';
         const date = form.date.value;
         const message = form.message.value;
+        const userImg = user?.photoURL;
         //console.log(name, email, date, message);
 
         const review = {
             service: _id,
             serviceName: title,
-            price,
             patient: name,
+            userImg,
             email,
             date,
             message
         }
 
-            fetch('http://localhost:5000/reviews', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json',
-                    // authorization: `Bearer ${localStorage.getItem('genius-token')}`
-                },
-                body: JSON.stringify(review)
+        fetch('http://localhost:5000/reviews', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+                // authorization: `Bearer ${localStorage.getItem('genius-token')}`
+            },
+            body: JSON.stringify(review)
+        })
+            .then(res => res.json())
+            .then(data => {
+                //console.log(data);
+                if (data.acknowledged) {
+                    toast('Your review added successfuly');
+                    form.reset();
+                }
             })
-                .then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                    if (data.acknowledged) {
-                        toast('Your review added successfuly');
-                        form.reset();
-                    }
-                })
-                .catch(er => console.error(er));
-        }
+            .catch(er => console.error(er));
+    }
 
-    
+
 
     return (
         <div>
@@ -108,12 +127,12 @@ const ServiceDetails = () => {
 
                     </div>
                     <div className='grid gap-6 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 my-8 mx-auto px-5 justify-evenly justify-items-center'>
-                        {/* {
-                            services.map(service => <ReviewCard
-                                key={service._id}
-                                service={service}
+                        {
+                            allReviews.map(review => <ReviewCard
+                                key={review._id}
+                                review={review}
                             ></ReviewCard>)
-                        } */}
+                        }
                     </div>
 
                     {/* review form */}
@@ -121,13 +140,13 @@ const ServiceDetails = () => {
 
                         <div className='mx-auto'>
                             <div className='mt-6 sm:mt-6 md:mt-0 lg:mt-0 flex justify-center sm:justify-center md:justify-start lg:justify-start items-center sm:items-center md:items-start lg:items-start md:w-1/2 lg:w-2/5 mx-auto'>
-                                <form onSubmit={handleAddReview} className='w-11/12 sm:w-11/12 md:w-11/12 lg:w-9/12 p-0 sm:p-1 md:p-4 lg:p-7'>
+                                <form onSubmit={handleAddReview} className='w-11/12 sm:w-11/12 md:w-11/12 lg:w-9/12 p-0 sm:p-1 md:p-4 lg:p-7 mx-auto'>
                                     <h2 className="text-4xl font-bold mb-6">Review Form</h2>
 
                                     <div className='grid grid-cols-1 gap-4'>
-                                        <input name="name" type="text" placeholder="Your Name" className="input input-ghost w-full bg-white border-teal-200" required/>
+                                        <input name="name" type="text" placeholder="Your Name" className="input input-ghost w-full bg-white border-teal-200" required />
 
-                                        <input name="date" type="date" placeholder="mm/dd/yyy" className="input input-ghost w-full bg-white border-teal-200" required/>
+                                        <input name="date" type="date" placeholder="mm/dd/yyy" className="input input-ghost w-full bg-white border-teal-200" required />
 
                                         <input name="email" type="text" placeholder="email" defaultValue={user?.email} className="input input-ghost w-full bg-white border-teal-200" />
 
