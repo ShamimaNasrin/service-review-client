@@ -1,5 +1,5 @@
 # Dr. Watson
-## It is online dental service booking and review site. All the services are given by Dr. watson.
+## It is an online dental service booking and review site. All the services are given by Dr. watson.
 
 ## Live preview: https://dentist-site-5c99e.web.app/
 
